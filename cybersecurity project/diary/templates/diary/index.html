@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <title>Päiväkirja</title>
+    </head>
+	<body>
+	<h1>Päiväkirja</h1>
+	<table>
+		<tr>
+		<th style="text-align:left">Username: <td>{{user.username}} 
+	</table>
+    <form action='logout/' method="POST">
+		{% csrf_token %}
+        <input type="submit" value="Logout"/>
+    </form>
+	
+	<h2>Päiväkirjamerkintäsi</h2>
+	{% if latest_entry_list %}
+		<ul>
+		{% for entry in latest_entry_list %}
+			<li><a href="{% url 'diary:detail' entry.id %}">{{ entry.entry_title }}</a> {{ entry.entry_date }}</li>
+		{% endfor %}
+		</ul>
+	{% else %}
+		<p>Ei merkintöjä päiväkirjaan.</p>
+	{% endif %}
+	<h2>Tee uusi merkintä:</h2>
+	<form action="add" method="POST">
+		{% csrf_token %}
+        <span>Merkinnän otsikko:</span><br/>
+        <input type="text" name="entry_title"/><br/>
+		<span>Merkinnän sisältö:</span><br/>
+		<textarea id="entry_text" name="entry_text" rows="10" cols="50">
+		</textarea>
+		<br>
+        <input type="submit" value="Luo merkintä"/>
+    </form>
+	<h2>Etsi merkintää:</h2>
+	<form action="search" method="POST">
+		{% csrf_token %}
+        <span>Haettava merkintä sisältää:</span><br/>
+        <input type="text" name="search_text"/><br/>
+		<br>
+        <input type="submit" value="Etsi"/>
+    </form>
+	</body>
+</html>

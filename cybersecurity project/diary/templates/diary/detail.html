@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>{{ entry.entry_title }}</title>
+    </head>
+	<body>
+		<h1>{{ entry.entry_title }}</h1>
+		{{ entry.entry_date }}
+		<br>
+		<br>
+		{{ entry.entry_text }}
+		<br>
+		<br>
+		<a href="{% url 'diary:index' %}">Palaa etusivulle</a>
+	</body>
+</html>
